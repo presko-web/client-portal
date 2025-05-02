@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #ffffff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: #333;
+    }
+
+    .thank-you-container {
+      background: white;
+      padding: 40px 50px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+      animation: fadeIn 1s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo {
+      width: 80px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      color: #99BCC0;
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1rem;
+      margin: 15px 0 30px;
+      color: #555;
+    }
+
+    .home-btn {
+      background-color: #99BCC0;
+      color: white;
+      padding: 12px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background 0.3s ease;
+      display: inline-block;
+    }
+
+    .home-btn:hover {
+      background-color: #7da4a8;
+    }
+
+    /* Responsive styles */
+    @media (max-width: 480px) {
+      .thank-you-container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      p {
+        font-size: 0.95rem;
+      }
+
+      .logo {
+        width: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="thank-you-container">
+    <img src="https://via.placeholder.com/100x100.png?text=Logo" alt="Logo" class="logo" />
+    <h1>Thank You, [Your Name]!</h1>
+    <p>Your response has been received. We appreciate you reaching out and will get back to you as soon as possible.</p>
+    <a href="/" class="home-btn">Back to Home</a>
+  </div>
+</body>
+</html>
