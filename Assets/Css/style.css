@@ -1,299 +1,239 @@
-body {
-    margin: 0;
-    font-family: 'Montserrat', Arial, sans-serif;
-}
-*, *:before, *:after {
-    box-sizing: border-box;
-}
-.custom-width{
-    max-width: 1440px;
-    margin: auto;
-    padding: 0 1em;
-}
-.content .content-header{
-    background-color: #99BCC0;
-}
-.content .content-header .logo img{
-    width: 250px;
-}
-.content-main{
-    margin-top: 4em;
-}
-.custom-label{
-    font-size: 13px;
-    font-weight: 700;
-    color: #557275;
-    padding: 0 0.5em;
-    margin: 0 0 1em 0;
-}
-.input-label{
-    font-size: 12px;
-    color: #99bcc0;
-    display: block;
-    margin-bottom: 5px;
-    padding-top: 5px;
-}
-.padding-top-mid{
-    padding-top: 1.5em;
-}
-/**
-    Cards
-**/
-.custom-card{
-    padding: 1.5em;
-    border-radius: 25px;
-    -webkit-box-shadow: 0px 1px 6px 0px rgb(237 232 237);
-    -moz-box-shadow: 0px 1px 6px 0px rgb(237 232 237);
-    box-shadow: 0px 1px 6px 0px rgb(237 232 237);
-    border: 1px solid #e5e5e5;
-}
-.custom-card-header h2{
-    margin: 0;
-}
-.custom-card-header{
-    margin: 0 0 1em 0;
-}
-#frm{
-    margin-bottom: 1em;
-}
-.datepicker{
-    position: relative;
-}
-.datepicker::after{
-    content: "";
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 40px;
-    height: 32px;
-    background-color: transparent;
-    z-index: 100;
-}
-/** columns **/
-.custom-row{
-    display: flex;
-}
-.custom-row div.col-1-of-2{
-    width: 50%;
-    padding: 0 0.5em;
-}
-.custom-row .col-1-of-1{
-    width: 100%;
-    padding: 0 0.5em;
-}
-
-
-/** forms **/
-select, input, textarea{
-    width: 100%;
-    display: block;
-    height: 32px;
-    border-radius: 5px;
-    font-size: 13px;
-    padding: 0 5px;
-    border: 1px solid rgb(147, 147, 147);
-    font-family: 'Montserrat', Arial, sans-serif;
-}
-textarea{
-    padding: 10px;
-    max-width: 100%;
-    height: 70px;
-    font-size: 13px;
-}
-input{
-    padding: 0 10px;
-}
-div.buttons button{
-    float: right;
-    margin: 0 0 0 1em;
-    font-family: 'Montserrat', Arial, sans-serif;
-    height: 32px;
-    padding: 0 1em;
-    outline: none;
-    border: 1px solid rgb(147, 147, 147);
-    border-radius: 5px;
-    transition: .3s;
-    cursor: pointer;
-}
-div.buttons{
-    margin-top: 0.75rem;
-}
-.custom-default-btn{
-    background-color: white;
-    color: #557275;
-}
-.custom-default-btn:hover{
-    background-color: #f1f6f7;
-}
-.custom-neutral-btn{
-    background-color: #557275;
-    color: white;
-}
-.custom-neutral-btn:hover{
-    background-color: #3d5d61;
-}
-
-button[disabled]{
-    background-color: #d4dedf;
-}
-button[disabled]:hover{
-    background-color: #d4dedf !important;
-}
-button[name=book]{
-    display: none;
-}
-
-/* table */
-.tbl{
-    width: 100%;
-    border-collapse: collapse;
-}
-
-table.tbl thead th{
-    text-align: left;
-    color: #557275;
-    font-size: 13px;
-    font-weight: 600;
-    height: 32px;
-    padding: 0 .5em;
-    border-bottom: 1px solid #e3e3e3;
-    border-right: 1px solid #929592;
-}
-
-table.tbl tbody tr td{
-    text-align: left;
-    font-size: 13px;
-    height: 25px;
-    padding: 0 .5em;
-}
-#total-table table tbody tr td{
-    text-align: right;
-    font-size: 13px;
-    font-weight: 500;
-}
-
-#total-table table{
-    float: right;
-    margin: 1em 0;
-    width: 20%;
-}
-
-#table-data{
-    display: none;
-}
-#customer-data{
-    display: none;
-}
-div.cover-loader{
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, 0.46);
-    z-index: 100;
-    display: none;
-}
-.loader {
-    font-size: 10px;
-    width: 1em;
-    height: 1em;
-    border-radius: 50%;
-    position: relative;
-    text-indent: -9999em;
-    animation: mulShdSpin 1.1s infinite ease;
-    transform: translateZ(0);
-    margin: auto;
-    top: calc(50% - 1em);
-  }
-  @keyframes mulShdSpin {
-    0%,
-    100% {
-      box-shadow: 0em -2.6em 0em 0em #ffffff, 1.8em -1.8em 0 0em rgba(255,255,255, 0.2), 2.5em 0em 0 0em rgba(255,255,255, 0.2), 1.75em 1.75em 0 0em rgba(255,255,255, 0.2), 0em 2.5em 0 0em rgba(255,255,255, 0.2), -1.8em 1.8em 0 0em rgba(255,255,255, 0.2), -2.6em 0em 0 0em rgba(255,255,255, 0.5), -1.8em -1.8em 0 0em rgba(255,255,255, 0.7);
+    body {
+        margin: 0;
+        font-family: 'Montserrat', sans-serif;
+        background-color: #fefefe;
     }
-    12.5% {
-      box-shadow: 0em -2.6em 0em 0em rgba(255,255,255, 0.7), 1.8em -1.8em 0 0em #ffffff, 2.5em 0em 0 0em rgba(255,255,255, 0.2), 1.75em 1.75em 0 0em rgba(255,255,255, 0.2), 0em 2.5em 0 0em rgba(255,255,255, 0.2), -1.8em 1.8em 0 0em rgba(255,255,255, 0.2), -2.6em 0em 0 0em rgba(255,255,255, 0.2), -1.8em -1.8em 0 0em rgba(255,255,255, 0.5);
-    }
-    25% {
-      box-shadow: 0em -2.6em 0em 0em rgba(255,255,255, 0.5), 1.8em -1.8em 0 0em rgba(255,255,255, 0.7), 2.5em 0em 0 0em #ffffff, 1.75em 1.75em 0 0em rgba(255,255,255, 0.2), 0em 2.5em 0 0em rgba(255,255,255, 0.2), -1.8em 1.8em 0 0em rgba(255,255,255, 0.2), -2.6em 0em 0 0em rgba(255,255,255, 0.2), -1.8em -1.8em 0 0em rgba(255,255,255, 0.2);
-    }
-    37.5% {
-      box-shadow: 0em -2.6em 0em 0em rgba(255,255,255, 0.2), 1.8em -1.8em 0 0em rgba(255,255,255, 0.5), 2.5em 0em 0 0em rgba(255,255,255, 0.7), 1.75em 1.75em 0 0em #ffffff, 0em 2.5em 0 0em rgba(255,255,255, 0.2), -1.8em 1.8em 0 0em rgba(255,255,255, 0.2), -2.6em 0em 0 0em rgba(255,255,255, 0.2), -1.8em -1.8em 0 0em rgba(255,255,255, 0.2);
-    }
-    50% {
-      box-shadow: 0em -2.6em 0em 0em rgba(255,255,255, 0.2), 1.8em -1.8em 0 0em rgba(255,255,255, 0.2), 2.5em 0em 0 0em rgba(255,255,255, 0.5), 1.75em 1.75em 0 0em rgba(255,255,255, 0.7), 0em 2.5em 0 0em #ffffff, -1.8em 1.8em 0 0em rgba(255,255,255, 0.2), -2.6em 0em 0 0em rgba(255,255,255, 0.2), -1.8em -1.8em 0 0em rgba(255,255,255, 0.2);
-    }
-    62.5% {
-      box-shadow: 0em -2.6em 0em 0em rgba(255,255,255, 0.2), 1.8em -1.8em 0 0em rgba(255,255,255, 0.2), 2.5em 0em 0 0em rgba(255,255,255, 0.2), 1.75em 1.75em 0 0em rgba(255,255,255, 0.5), 0em 2.5em 0 0em rgba(255,255,255, 0.7), -1.8em 1.8em 0 0em #ffffff, -2.6em 0em 0 0em rgba(255,255,255, 0.2), -1.8em -1.8em 0 0em rgba(255,255,255, 0.2);
-    }
-    75% {
-      box-shadow: 0em -2.6em 0em 0em rgba(255,255,255, 0.2), 1.8em -1.8em 0 0em rgba(255,255,255, 0.2), 2.5em 0em 0 0em rgba(255,255,255, 0.2), 1.75em 1.75em 0 0em rgba(255,255,255, 0.2), 0em 2.5em 0 0em rgba(255,255,255, 0.5), -1.8em 1.8em 0 0em rgba(255,255,255, 0.7), -2.6em 0em 0 0em #ffffff, -1.8em -1.8em 0 0em rgba(255,255,255, 0.2);
-    }
-    87.5% {
-      box-shadow: 0em -2.6em 0em 0em rgba(255,255,255, 0.2), 1.8em -1.8em 0 0em rgba(255,255,255, 0.2), 2.5em 0em 0 0em rgba(255,255,255, 0.2), 1.75em 1.75em 0 0em rgba(255,255,255, 0.2), 0em 2.5em 0 0em rgba(255,255,255, 0.2), -1.8em 1.8em 0 0em rgba(255,255,255, 0.5), -2.6em 0em 0 0em rgba(255,255,255, 0.7), -1.8em -1.8em 0 0em #ffffff;
-    }
-  }
 
-.mobile-calculation{
-    display: none;
-}
-.custom-accordion .custom-accordion-header p{
-    color: #557275;
-    font-size: 13px;
-    font-weight: 600;
-    margin: 0;
-    padding: 10px;
-    border-bottom: 1px solid #e0ebeb;
-}
-.custom-accordion table{
-    width: 100%;
-    padding: 5px;
-    
-}
-.custom-accordion{
-    background-color: #f4f7f7;
-    border-radius: 5px;
-    border: 1px solid #e0ebeb;
-    margin-top: .5em;
-}
-.custom-accordion table tr td{
-    font-size: 12px;
-    width: 50px;
-    height: 25px;
-    padding: 0 10px;
-}
-#mobile-responsive-total{
-    margin-top: .5em;
-    
-}
-#mobile-responsive-total table{
-    width: 100%;
-    font-size: 13px;
-    margin-bottom: 3em;
-}
-#mobile-responsive-total table tr td{
-    text-align: right;
-    font-weight: 500;
-}
+    .wrapper {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    header {
+        background-color: #9abec2;
+    }
 
 
-
-
-@media only screen and (max-width: 500px) {
-    .custom-row{
-        flex-direction: column;
+    .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: white;
     }
-    .col-1-of-2{
+    .logo img{
+        width: 250px
+    }
+    nav a {
+        color: white;
+        margin-left: 20px;
+        text-decoration: none;
+    }
+
+    .container {
+        padding: 30px 0;
+    }
+
+    .top-section {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+
+    .card {
+        flex: 1;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        position: relative;
+    }
+
+    .card-footer {
+        border-top: 1px solid #eee;
+        padding-top: 10px;
+        margin-top: 15px;
+        font-size: 12px;
+        color: #888;
+
+        background-color: #f7f7f7;
+        position: absolute;
+        width: 100%;
+        display: inline-table;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 10px 20px;
+        box-sizing: border-box;
+
+
+    }
+
+    .card h4 {
+        margin-top: 0;
+        font-size: 14px;
+        color: #555;
+    }
+
+    .info p {
+        margin: 5px 0;
+        font-size: 14px;
+    }
+
+    .info strong {
         display: block;
-        width: 100% !important;
+        margin-top: 10px;
+        font-size: 16px;
     }
-    button[name="proceed"]{
-        margin-bottom: 10px !important;
+    .last-cleaning-date{
+        text-align: right;
     }
-    .mobile-calculation{
-        display: block;
+    .transactions p{
+        font-size: 14px;
     }
-    .default-calc-table{
-        display: none;
+    .transactions table {
+        width: 100%;
+        border-collapse: collapse;
     }
-}
+
+    .transactions th, .transactions td {
+        padding: 8px;
+        text-align: left;
+    }
+
+    .transactions td {
+        font-size: 12px;
+    }
+
+    .transactions th {
+        color: #888;
+        font-size: 13px;
+    }
+
+    .book-btn {
+        background-color: #3e6c6e;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .points {
+        font-size: 32px;
+        font-weight: bold;
+        color: #3e6c6e;
+    }
+
+    .points-note {
+        font-size: 12px;
+        margin-top: 10px;
+        color: #777;
+    }
+
+    .btn-disabled {
+        background-color: #e0e0e0;
+        color: #aaa;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: not-allowed;
+    }
+
+    .appointments {
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 20px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .appointments table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+    }
+
+    .appointments th, .appointments td {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+        text-align: left;
+    }
+
+
+    .header-nav ul li{
+        display: inline-block;
+        padding: 0 1em;
+        font-size: 13px;
+        color: #557275;
+        font-weight: 600;
+    }
+    .header-nav ul{
+        background-color: #99BCC0;
+        padding-left: 1em;
+        margin: 0;
+    }
+    .header-nav ul li a{
+        padding: 1em 0;
+        display: inline-block;
+        color: white;
+        text-decoration: none;
+        border-bottom: 3px solid transparent;
+    }
+    .header-nav ul li a:hover{
+        color: #557275;
+        border-bottom: 3px solid #557275;
+    }
+
+    .header-nav ul li a.active{
+        border-bottom-color:#557275;
+        color: #557275;
+    }
+
+
+
+    /* Responsive Design */
+    @media (max-width: 1000px) {
+        .top-section {
+            flex-direction: column;
+        }
+
+        .card.transactions {
+            order: 3;
+            width: 100%;
+        }
+
+        .appointments table,
+        .transactions table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .appointments table thead,
+        .transactions table thead {
+            background-color: #f9f9f9;
+        }
+
+        .appointments th, .appointments td,
+        .transactions th, .transactions td {
+            min-width: 100px;
+        }
+
+        .card {
+            padding: 15px;
+        }
+
+        .appointments {
+            padding: 15px;
+        }
+
+        .logo {
+            font-size: 18px;
+        }
+
+        nav a {
+            font-size: 14px;
+            margin-left: 10px;
+        }
+    }
