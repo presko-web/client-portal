@@ -1,0 +1,31 @@
+.row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+.column {
+    flex: 1;
+    min-width: 250px;
+    
+}
+.label {
+    color: #7aa2b8;
+    font-size: 12px;
+    margin-bottom: 4px;
+    
+}
+.value {
+    font-size: 14px;
+    color: #000;
+    margin-bottom: 16px;
+    padding-left: 3px;
+}
+@media (max-width: 600px) {
+    .row {
+        flex-direction: column;
+    }
+    .column {
+        width: 100%;
+        text-align: left;
+    }
+}

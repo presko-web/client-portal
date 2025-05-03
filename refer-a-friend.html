@@ -39,46 +39,100 @@
                     <a href="index.html">DASHBOARD</a>
                 </li>
                 <li>
-                    <a href="book-a-cleaning.html" class="active">BOOK A CLEANING</a>
+                    <a href="book-a-cleaning.html">BOOK A CLEANING</a>
                 </li>
                 <li>
-                    <a href="refer-a-friend.html">REFER A FRIEND</a>
+                    <a href="refer-a-friend.html" class="active">REFER A FRIEND</a>
                 </li>
             </ul>
         </div>
       </div>
     </header>
     
-    <div class="container">
-      <div class="wrapper">
-        <div class="card">
-            <h4>Customer Details</h4>
-            <div class="row">
-                <div class="column">
-                    <div class="label">Customer Name</div>
-                    <div class="value">Clifford Ursabia</div>
-                    <div class="label">Complete Address</div>
-                    <div class="value">Level 5, 352 Kent St, test, Malolos</div>
-                </div>
-                <div class="column">
-                    <div class="label">Loyalty Points</div>
-                    <div class="value">--</div>
-                </div>
-            </div>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-        
+    <div class="container" style="margin-bottom: 20px;">
         <div class="custom-width">
             <form id="frm" method="POST">
                 <div class="custom-card">
+                    
                     <!-- <div class="custom-card-header">
                         
                     </div> -->
                     <div class="card-body">
-                        <div id="calculator">
-                            <h2 class="custom-label">Pricing Calculator</h2>
+                        <div>
+                            <h2 class="custom-label">Your Friend's Details</h2>
+
+                            <div class="row">
+                                <div class="column">
+                                    <div class="label">Agent Name</div>
+                                    <div class="value">Clifford Ursabia</div>
+                                </div>
+                            </div>
+                            <div class="custom-row">
+                                <div class="col-1-of-2 col-1-of-1-small">
+                                    <div class="">
+                                        <label for="first-name" class="input-label">First name</label>
+                                        <input type="text" name="firstName" id="first-name" required="true">
+                                    </div>
+                                </div>
+
+                                <div class="col-1-of-2 col-1-of-1-small">
+                                    <div class="">
+                                        <label for="last-name" class="input-label">Last name</label>
+                                        <input type="text" name="lastName" id="last-name" required="true">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="custom-row">
+                                <div class="col-1-of-1">
+                                    <div class="">
+                                        <label for="mobile" class="input-label">Mobile number <small>(ex. 09097685432)</small>
+                                        </label>
+                                        <input type="tel" name="mobile" id="mobile" required="true" pattern="^09\d{9}$">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="custom-row">
+                                <div class="col-1-of-1">
+                                    <div class="">
+                                        <label for="street" class="input-label">Street</label>
+                                        <textarea name="street" id="street" required="true"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="custom-row">
+                                <div class="col-1-of-2 col-1-of-1-small">
+                                    <div class="">
+                                        <label for="barangay" class="input-label">Barangay</label>
+                                        <input type="text" name="barangay" id="barangay" required="true">
+                                    </div>
+                                </div>
+
+                                <div class="col-1-of-2 col-1-of-1-small">
+                                    <div class="">
+                                        <label for="city" class="input-label">City/Municipality</label>
+                                        <input type="text" name="city" id="city" value="Malolos" required="true">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="custom-row">
+                                <div class="col-1-of-1">
+                                    <div class="">
+                                        <label for="landmark" class="input-label">Landmark</label>
+                                        <textarea name="landmark" id="landmark" required="true"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="calculator" style="margin-top: 30px;">
+                            <h2 class="custom-label">Your Friend's Booking</h2>
+                
                             <div class="custom-row">
                                 <div class="col-1-of-2 col-1-of-1-small">
                                     <div class="">
@@ -97,9 +151,9 @@
                                     </div>
                                 </div>
                             </div>
-    
+                
                             <div class="custom-row">
-
+                
                                 <div class="col-1-of-2 col-1-of-1-small">
                                     <div class="">
                                         <label for="u-shaped-type" class="input-label">Number of U-Shaped type</label>
@@ -108,8 +162,8 @@
                                         </select>
                                     </div>
                                 </div>
-
-
+                
+                
                                 <div class="col-1-of-2 col-1-of-1-small">
                                     <div class="datepicker">
                                         <label for="datepicker" class="input-label">Cleaning date</label>
@@ -119,7 +173,7 @@
                                 </div>
                             </div>
                         </div>
-
+                
                         <div id="table-data" class="padding-top-mid">
                             <h2 class="custom-label">Calculation Table</h2>
                             <div class="custom-row default-calc-table">
@@ -136,22 +190,23 @@
                                     <div id="total-table"></div>
                                 </div>
                             </div>
-
+                
                             <div class="mobile-calculation">
                                 <div id="inner-mobile-calc"></div>
                                 <div id="mobile-responsive-total">
                                 </div>
                             </div>
+                
                         </div>
+
+
                     </div>
 
                     <div class="card-foot">
                         <div class="custom-row">
                             <div class="col-1-of-1">
                                 <div class="buttons">
-                                    <button type="button" class="custom-neutral-btn" name="proceed" disabled>PROCEED TO BOOKING</button>
-                                    <button type="submit" class="custom-neutral-btn" name="book">BOOK</button>
-                                    <button type="button" class="custom-default-btn" name="clear">CLEAR</button>
+                                    <button type="submit" class="custom-neutral-btn" name="">REFER</button>
                                 </div>
                             </div>
                         </div>
@@ -160,5 +215,7 @@
             </form>
         </div>
     </div>
-    </body>
+
+
+</body>
 </html>
