@@ -1,239 +1,262 @@
-    body {
-        margin: 0;
-        font-family: 'Montserrat', sans-serif;
-        background-color: #fefefe;
-    }
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #fefefe;
+}
+button{
+    font-family: 'Montserrat', sans-serif;
+}
+.wrapper {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
 
-    .wrapper {
-        max-width: 1440px;
-        margin: 0 auto;
-        padding: 0 15px;
-    }
-
-    header {
-        background-color: #9abec2;
-    }
+header {
+    background-color: #9abec2;
+}
 
 
-    .logo {
-        font-size: 24px;
-        font-weight: bold;
-        color: white;
-    }
-    .logo img{
-        width: 250px
-    }
-    nav a {
-        color: white;
-        margin-left: 20px;
-        text-decoration: none;
-    }
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+.logo img{
+    width: 250px
+}
+nav a {
+    color: white;
+    margin-left: 20px;
+    text-decoration: none;
+}
 
-    .container {
-        padding: 30px 0;
-    }
+.container {
+    padding: 30px 0 0 0;
+}
 
+.top-section {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.card {
+    flex: 1;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    -webkit-box-shadow: 0px 1px 6px 0px rgb(237 232 237);
+    -moz-box-shadow: 0px 1px 6px 0px rgb(237 232 237);
+    box-shadow: 0px 1px 6px 0px rgb(237 232 237);
+    position: relative;
+}
+
+.card-footer {
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+    margin-top: 15px;
+    font-size: 12px;
+    color: #888;
+
+    background-color: #f7f7f7;
+    position: absolute;
+    width: 100%;
+    display: inline-table;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 20px;
+    box-sizing: border-box;
+
+
+}
+
+.card h4 {
+    margin-top: 0;
+    font-size: 14px;
+    color: #557275;
+}
+
+.info p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+.info p.address{
+    margin: 40px 0 20px 0;
+}
+.info strong {
+    display: block;
+    margin-top: 10px;
+    font-size: 16px;
+}
+.last-cleaning-date{
+    text-align: right;
+}
+.transactions p{
+    font-size: 14px;
+}
+.transactions table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transactions th, .transactions td {
+    padding: 8px;
+    text-align: left;
+}
+
+.transactions td {
+    font-size: 13px;
+    color: #555
+}
+
+.transactions th {
+    color: #557275;
+    font-size: 13px;
+}
+.last-cleaning-date span{
+    color: #557275;
+}
+.book-btn {
+    background-color: #3e6c6e;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.points {
+    font-size: 32px;
+    font-weight: bold;
+    color: #3e6c6e;
+}
+
+.points-note {
+    font-size: 12px;
+    margin-top: 10px;
+    color: #777;
+}
+
+.btn-disabled {
+    background-color: #e0e0e0;
+    color: #aaa;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: not-allowed;
+}
+
+.appointments {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.appointments table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+.appointments th{
+    color: #557275;
+}
+
+.appointments td{
+    color: #555;
+}
+.appointments th, .appointments td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+    font-size: 13px;
+}
+
+.appointments h4{
+    font-size: 14px;
+    color: #557275;
+    margin: 5px 0 20px 0;
+}
+.header-nav ul li{
+    display: inline-block;
+    padding: 0 1em;
+    font-size: 13px;
+    color: #557275;
+    font-weight: 600;
+}
+.header-nav ul{
+    background-color: #99BCC0;
+    padding-left: 1em;
+    margin: 0;
+}
+.header-nav ul li a{
+    padding: 1em 0;
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+}
+.header-nav ul li a:hover{
+    color: #557275;
+    border-bottom: 3px solid #557275;
+}
+
+.header-nav ul li a.active{
+    border-bottom-color:#557275;
+    color: #557275;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 800px) {
     .top-section {
-        display: flex;
-        gap: 20px;
-        margin-bottom: 40px;
-    }
-
-    .card {
-        flex: 1;
-        background-color: white;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        position: relative;
-    }
-
-    .card-footer {
-        border-top: 1px solid #eee;
-        padding-top: 10px;
-        margin-top: 15px;
-        font-size: 12px;
-        color: #888;
-
-        background-color: #f7f7f7;
-        position: absolute;
-        width: 100%;
-        display: inline-table;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 10px 20px;
-        box-sizing: border-box;
-
-
-    }
-
-    .card h4 {
-        margin-top: 0;
-        font-size: 14px;
-        color: #555;
-    }
-
-    .info p {
-        margin: 5px 0;
-        font-size: 14px;
-    }
-
-    .info strong {
-        display: block;
-        margin-top: 10px;
-        font-size: 16px;
-    }
-    .last-cleaning-date{
-        text-align: right;
-    }
-    .transactions p{
-        font-size: 14px;
-    }
-    .transactions table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-
-    .transactions th, .transactions td {
-        padding: 8px;
-        text-align: left;
-    }
-
-    .transactions td {
-        font-size: 12px;
-    }
-
-    .transactions th {
-        color: #888;
-        font-size: 13px;
-    }
-
-    .book-btn {
-        background-color: #3e6c6e;
-        color: white;
-        border: none;
-        padding: 6px 12px;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    .points {
-        font-size: 32px;
-        font-weight: bold;
-        color: #3e6c6e;
-    }
-
-    .points-note {
-        font-size: 12px;
-        margin-top: 10px;
-        color: #777;
-    }
-
-    .btn-disabled {
-        background-color: #e0e0e0;
-        color: #aaa;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 4px;
-        cursor: not-allowed;
-    }
-
-    .appointments {
-        background-color: white;
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        padding: 20px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        flex-direction: column;
     }
 
     .appointments table {
-        width: 100%;
-        border-collapse: collapse;
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .appointments table thead,
+    .transactions table thead {
+        background-color: #f9f9f9;
+    }
+
+    .appointments th, .appointments td,
+    .transactions th, .transactions td {
+        min-width: 100px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .appointments {
+        padding: 15px;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+
+    nav a {
         font-size: 14px;
+        margin-left: 10px;
     }
+}
 
-    .appointments th, .appointments td {
-        padding: 10px;
-        border-bottom: 1px solid #eee;
-        text-align: left;
+@media (max-width: 500px) {
+    .transactions table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
     }
-
-
-    .header-nav ul li{
-        display: inline-block;
-        padding: 0 1em;
-        font-size: 13px;
-        color: #557275;
-        font-weight: 600;
-    }
-    .header-nav ul{
-        background-color: #99BCC0;
-        padding-left: 1em;
-        margin: 0;
-    }
-    .header-nav ul li a{
-        padding: 1em 0;
-        display: inline-block;
-        color: white;
-        text-decoration: none;
-        border-bottom: 3px solid transparent;
-    }
-    .header-nav ul li a:hover{
-        color: #557275;
-        border-bottom: 3px solid #557275;
-    }
-
-    .header-nav ul li a.active{
-        border-bottom-color:#557275;
-        color: #557275;
-    }
-
-
-
-    /* Responsive Design */
-    @media (max-width: 1000px) {
-        .top-section {
-            flex-direction: column;
-        }
-
-        .card.transactions {
-            order: 3;
-            width: 100%;
-        }
-
-        .appointments table,
-        .transactions table {
-            display: block;
-            overflow-x: auto;
-            white-space: nowrap;
-        }
-
-        .appointments table thead,
-        .transactions table thead {
-            background-color: #f9f9f9;
-        }
-
-        .appointments th, .appointments td,
-        .transactions th, .transactions td {
-            min-width: 100px;
-        }
-
-        .card {
-            padding: 15px;
-        }
-
-        .appointments {
-            padding: 15px;
-        }
-
-        .logo {
-            font-size: 18px;
-        }
-
-        nav a {
-            font-size: 14px;
-            margin-left: 10px;
-        }
-    }
+}
