@@ -33,7 +33,7 @@ const  getToken = async () => {
 }
 
 const getData = async () => {
-    const data = new Promise((resolve, reject) => {
+    const data = await new Promise((resolve, reject) => {
         let token = sessionStorage.getItem("tkn");
         var reqJson = {
             "url": "https://presko-dev-ed.develop.my.salesforce.com/services/apexrest/RetrieveSetupDetails",
@@ -58,6 +58,35 @@ const getData = async () => {
     });
     return data;
 }
+
+
+const getClientData = async (jsonData) => {
+    console.log('jsonData: ', jsonData);
+    
+    const data = await new Promise((resolve, reject) => {
+        let token = sessionStorage.getItem("tkn");
+        var reqJson = {
+            "url": "https://presko-dev-ed.develop.my.salesforce.com/services/apexrest/GetCustomerDetails",
+            "method": "POST",
+            "timeout": 0,
+            "headers": {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            },
+            "data": JSON.stringify(jsonData),
+        }
+        $.ajax(reqJson).done(function (res) {
+            console.log("res: ", res);
+
+            resolve(res);
+        }).catch(function (err){
+            console.log(err.responseJSON);
+            reject(err.responseJSON);
+        });
+    });
+    return data;
+}
+
 
 const createRecord = (data) => {
 
@@ -237,13 +266,4 @@ const generateBreakdownTable = (arrTableData) => {
 
 }
 
-export default {
-    getToken,
-    getData,
-    createRecord,
-    getCreds,
-    calculation,
-    generateTotalTable,
-    removeTable,
-    generateBreakdownTable
-}
+export default { getToken, getData, createRecord, getCreds, calculation, generateTotalTable, removeTable, generateBreakdownTable, getClientData }

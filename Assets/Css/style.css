@@ -134,7 +134,11 @@ nav a {
     font-weight: bold;
     color: #3e6c6e;
 }
-
+.points #redeem-btn{
+    font-size: 14px !important;
+    font-weight: normal !important;
+    text-decoration: none;
+}
 .points-note {
     font-size: 12px;
     margin-top: 10px;
