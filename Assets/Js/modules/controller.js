@@ -1,4 +1,3 @@
-
 const  getToken = async () => {
     let clientId = atob(sessionStorage.getItem("clientId"));
     let clientSecret = atob(sessionStorage.getItem("clientSecret"));
@@ -59,34 +58,46 @@ const getData = async () => {
     return data;
 }
 
+const getClientData = async (jsonData, forceInit) => {
 
-const getClientData = async (jsonData) => {
-    console.log('jsonData: ', jsonData);
-    
     const data = await new Promise((resolve, reject) => {
-        let token = sessionStorage.getItem("tkn");
-        var reqJson = {
-            "url": "https://presko-dev-ed.develop.my.salesforce.com/services/apexrest/GetCustomerDetails",
-            "method": "POST",
-            "timeout": 0,
-            "headers": {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + token
-            },
-            "data": JSON.stringify(jsonData),
-        }
-        $.ajax(reqJson).done(function (res) {
-            console.log("res: ", res);
+        
+        if(sessionStorage.getItem("clientData") !== null && sessionStorage.getItem("clientData") !== undefined && sessionStorage.getItem("recordId") == jsonData.client_id){
+            // console.log("Client data already exists in session storage, using it instead of making a new request.");
+            var res = JSON.parse(sessionStorage.getItem("clientData"));
+            var resString = JSON.stringify(res);
+            var resJsn = JSON.parse(resString);
+            resolve(resJsn);
+            
+        }else{
+            // console.log("Client data does not exist in session storage, making a new request.");
+            let token = sessionStorage.getItem("tkn");
+            var reqJson = {
+                "url": "https://presko-dev-ed.develop.my.salesforce.com/services/apexrest/GetCustomerDetails",
+                "method": "POST",
+                "timeout": 0,
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + token
+                },
+                "data": JSON.stringify(jsonData)
+            }
+            $.ajax(reqJson).done(function (res) {
+                var resString = JSON.stringify(res);
+                sessionStorage.setItem("clientData", resString);
+                sessionStorage.setItem("recordId", res.client.id);
+                resolve(res);
 
-            resolve(res);
-        }).catch(function (err){
-            console.log(err.responseJSON);
-            reject(err.responseJSON);
-        });
+            }).catch(function (err){
+                console.log(err.responseJSON);
+                reject(err.responseJSON);
+
+            });
+        }
     });
     return data;
-}
 
+}
 
 const createRecord = (data) => {
 

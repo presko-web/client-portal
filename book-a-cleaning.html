@@ -24,6 +24,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 <script src="Assets/Js/customScript.js" type="module"></script>
+<script src="Assets/Js/book-a-cleaning.js" type="module"></script>
 <body>
 
     <header>
@@ -56,13 +57,13 @@
             <div class="row">
                 <div class="column">
                     <div class="label">Customer Name</div>
-                    <div class="value">Clifford Ursabia</div>
+                    <div class="value value-name">---</div>
                     <div class="label">Complete Address</div>
-                    <div class="value">Level 5, 352 Kent St, test, Malolos</div>
+                    <div class="value value-address">---</div>
                 </div>
                 <div class="column">
                     <div class="label">Loyalty Points</div>
-                    <div class="value">--</div>
+                    <div class="value-points">--</div>
                 </div>
             </div>
         </div>
@@ -115,7 +116,7 @@
                                         <label for="redeemPoints" class="input-label">Redeem your points?</label>
                                         <select name="redeemPoints" id="redeemPoints">
                                             <option value="Yes">Yes</option>
-                                            <option value="No">No</option>
+                                            <option value="No" selected>No</option>
                                         </select>
                                     </div>
 
