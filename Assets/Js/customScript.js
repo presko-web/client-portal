@@ -44,7 +44,7 @@ async function init(){
                     }
                 }
             }else if(window.location.href.indexOf("refer-a-friend.html") > -1){
-
+                $('.value-name').text(res.client.name);
             }else{
                 $('.address').text(res.client.street + ", " + res.client.barangay + ", " + res.client.city + ", " + res.client.landmark);
                 $('.phoneNumber').text(res.client.mobile);
