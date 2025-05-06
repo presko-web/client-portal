@@ -1,3 +1,7 @@
+var windowTypePrice = 0,
+splitTypePrice = 0,
+discount = 0;
+
 const  getToken = async () => {
     let clientId = atob(sessionStorage.getItem("clientId"));
     let clientSecret = atob(sessionStorage.getItem("clientSecret"));
@@ -49,6 +53,9 @@ const getData = async () => {
             if(!unavailableDates.includes(dateTotday)){
                 unavailableDates.push(dateTotday);
             }
+            windowTypePrice = resJsn.invoice.window_type;
+            splitTypePrice = resJsn.invoice.split_type;
+            discount = resJsn.invoice.discount;
             resolve({resJsn, unavailableDates});
         }).catch(function (err){
             console.log(err.responseJSON);
@@ -62,15 +69,15 @@ const getClientData = async (jsonData, forceInit) => {
 
     const data = await new Promise((resolve, reject) => {
         
-        if(sessionStorage.getItem("clientData") !== null && sessionStorage.getItem("clientData") !== undefined && sessionStorage.getItem("recordId") == jsonData.client_id){
-            // console.log("Client data already exists in session storage, using it instead of making a new request.");
+        if(sessionStorage.getItem("clientData") !== null && sessionStorage.getItem("clientData") !== undefined && sessionStorage.getItem("recordId") == jsonData.client_id && !forceInit){
+            console.log("Client data already exists in session storage, using it instead of making a new request.");
             var res = JSON.parse(sessionStorage.getItem("clientData"));
             var resString = JSON.stringify(res);
             var resJsn = JSON.parse(resString);
             resolve(resJsn);
             
         }else{
-            // console.log("Client data does not exist in session storage, making a new request.");
+            console.log("Client data does not exist in session storage, making a new request.");
             let token = sessionStorage.getItem("tkn");
             var reqJson = {
                 "url": "https://presko-dev-ed.develop.my.salesforce.com/services/apexrest/GetCustomerDetails",
@@ -91,7 +98,6 @@ const getClientData = async (jsonData, forceInit) => {
             }).catch(function (err){
                 console.log(err.responseJSON);
                 reject(err.responseJSON);
-
             });
         }
     });
@@ -169,18 +175,35 @@ const getCreds = async () => {
     }); 
 }
 
-const calculation = (numberOfWindowTypeCalculated, numberOfSplitTypeCalculated, uShapedTypeCalculated, discount)  => {
+const calculation = (redeem, numberOfWindowTypeCalculated, numberOfSplitTypeCalculated, uShapedTypeCalculated)  => {
     var subTotal = 0;
     var total = 0;
+    var redeemDiscount = 0;
     subTotal = numberOfWindowTypeCalculated + numberOfSplitTypeCalculated + uShapedTypeCalculated;
-    total = subTotal - (subTotal * (discount/100));
-    return {subTotal, total}
+    if (redeem == "Yes") {
+        if (numberOfWindowTypeCalculated > 0) {
+            total = subTotal - windowTypePrice;
+            redeemDiscount = windowTypePrice;
+        }else if (numberOfSplitTypeCalculated > 0 || uShapedTypeCalculated > 0) {
+            total = subTotal - splitTypePrice;
+            redeemDiscount = splitTypePrice;
+        }
+    }else{
+        total = subTotal - (subTotal * (discount/100));
+    }
+    return {subTotal, total, redeemDiscount};
 }
 
-const generateTotalTable = (calc, discount) => {
-
-    var discountMessage = "Discount (" + discount + "%):";
-    var totalDiscount = calc.subTotal * (discount/100);
+const generateTotalTable = (redeem, calc) => {
+    var discountMessage = '';
+    var totalDiscount = 0;
+    if(redeem == "Yes"){
+        discountMessage = "Redeemed Discount:";
+        totalDiscount = calc.redeemDiscount;
+    }else{
+        discountMessage = "Discount (" + discount + "%):";
+        totalDiscount = calc.subTotal * (discount/100);
+    }
     $("#total-table").html(`
                             <table>
                                 <tbody>
@@ -277,4 +300,50 @@ const generateBreakdownTable = (arrTableData) => {
 
 }
 
-export default { getToken, getData, createRecord, getCreds, calculation, generateTotalTable, removeTable, generateBreakdownTable, getClientData }
+const generateTableIntitator = (redeem, splitType, windowType, uShapedType) => {
+    let arrTableData = [];
+    if(splitType > 0){
+        arrTableData.push(
+            {
+                description: "Split Type Aircon Service",
+                qty: splitType,
+                unitPrice: splitTypePrice,
+                lineTotal: splitTypePrice * splitType
+            }
+        );
+    }
+    if(windowType > 0){
+        arrTableData.push(
+            {
+                description: "Window Type Aircon Service",
+                qty: windowType,
+                unitPrice: windowTypePrice,
+                lineTotal: windowTypePrice * windowType
+            }
+        );
+    }
+    if(uShapedType > 0){
+        arrTableData.push(
+            {
+                description: "U-Shaped Type Aircon Service",
+                qty: uShapedType,
+                unitPrice: splitTypePrice,
+                lineTotal: splitTypePrice * uShapedType
+            }
+        );
+    }
+
+
+    // Clean the Table
+    $('#table-data table.tbl > tbody > tr').remove();
+    removeTable(windowType, splitType, uShapedType);
+
+    // Generate new
+    generateBreakdownTable(arrTableData);
+    var calc = calculation(redeem, (windowType * windowTypePrice), (splitType * splitTypePrice), (uShapedType * splitTypePrice));
+    generateTotalTable(redeem, calc);
+
+    return calc.total;
+
+}
+export default { getToken, getData, createRecord, getCreds, calculation, generateTotalTable, removeTable, generateBreakdownTable, getClientData, generateTableIntitator }

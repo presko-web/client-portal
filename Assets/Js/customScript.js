@@ -4,16 +4,14 @@ var splitTypePrice = 0;
 var discount = 0;
 var minDate = new Date().toISOString().substring(0,10);
 var unavailableDates = [];
-var splitType = 0;
-var windowType = 0;
-var uShapedType = 0;
-var total = 0;
 var bookingDetails = {};
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('customerId');
 
-// Goods
+
 async function init(){
+    var reinit; // = (urlParams.get('redeem') != null && urlParams.get('redeem') != "" && urlParams.get('redeem') !== undefined && urlParams.get('redeem') == 'Yes') ? true : false;
+    reinit = true;
     // check if id is not null
     if(id == null || id == "" || id === undefined){
         // redirect to Pricing page
@@ -31,13 +29,20 @@ async function init(){
     await controller.getCreds();
     await controller.getToken();
     await initiateOrgData();
-    await controller.getClientData({"client_id": id}, false).then((res) => {
+    await controller.getClientData({"client_id": id}, reinit).then((res) => {
         if(res != null && res != undefined && res != "" && res.success === true){
             // check if we are in the index.html page
             if(window.location.href.indexOf("book-a-cleaning.html") > -1){
                 $('.value-address').text(res.client.street + ", " + res.client.barangay + ", " + res.client.city + ", " + res.client.landmark);
                 $('.value-name').text(res.client.name);
                 $('.value-points').text(res.client.loyalty.points);
+                if (res.client.loyalty.points < 5) {
+                    $('#redeemPoints').attr('disabled', 'disabled').val('No');
+                    if(urlParams.get('redeem') == 'Yes'){
+                        alert("You do not have enough points to redeem a cleaning. You need at least 5 points to redeem a cleaning.");
+                        window.location.href = "index.html?customerId=" + id;
+                    }
+                }
             }else if(window.location.href.indexOf("refer-a-friend.html") > -1){
 
             }else{
@@ -63,6 +68,8 @@ async function init(){
                         }
                         
                     })
+                }else{
+                    $('.transactions').css({'display':'none'});
                 }
     
                 $('.points-number').text(res.client.loyalty.points);
@@ -100,7 +107,7 @@ async function init(){
                                 <td>${item.noOfUShapedType}</td>
                                 <td>${new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP', minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(item.totalAmount)}</td>
                                 <td>${item.status}</td>
-                                <td style="max-width: 300px;">${notes}</td>
+                                <td style="max-width: 300px; text-wrap: auto">${notes}</td>
                             </tr>`
                         )
                     });
@@ -150,77 +157,14 @@ async function initiateOrgData(){
         });
         $( "#datepicker" ).removeAttr('disabled').val(nextCleaningDate);
 
-
-        
-
     }).catch((err) => {
         console.log('err: ', err);
     })
 }
 
 
+
 $(function() {
-
-    $('.number-Of').on('change', function(){
-        var arrTableData = [];
-        if($(this).attr('name') == 'noOfSplitType'){
-            splitType = $(this).val();
-        }else if($(this).attr('name') == 'noOfWindowType'){
-            windowType = $(this).val();
-        }else{
-            uShapedType = $(this).val();
-        }
-
-        if(splitType > 0){
-            arrTableData.push(
-                {
-                    description: "Split Type Aircon Service",
-                    qty: splitType,
-                    unitPrice: splitTypePrice,
-                    lineTotal: splitTypePrice * splitType
-                }
-            );
-        }
-        if(windowType > 0){
-            arrTableData.push(
-                {
-                    description: "Window Type Aircon Service",
-                    qty: windowType,
-                    unitPrice: windowTypePrice,
-                    lineTotal: windowTypePrice * windowType
-                }
-            );
-        }
-        if(uShapedType > 0){
-            arrTableData.push(
-                {
-                    description: "U-Shaped Type Aircon Service",
-                    qty: uShapedType,
-                    unitPrice: splitTypePrice,
-                    lineTotal: splitTypePrice * uShapedType
-                }
-            );
-        }
-        // Clean the Table
-        $('#table-data table.tbl > tbody > tr').remove();
-        controller.removeTable(windowType, splitType, uShapedType);
-
-        // Generate new
-        controller.generateBreakdownTable(arrTableData);
-        var calc = controller.calculation((windowType * windowTypePrice), (splitType * splitTypePrice), (uShapedType * splitTypePrice), discount);
-        total = calc.total;
-        controller.generateTotalTable(calc, discount);
-
-    });
-
-    $("button[name=clear]").on("click", function(){
-        $('.number-Of').val(0);
-        splitType = 0;
-        windowType = 0;
-        uShapedType = 0;
-        $('#cleaning-date').val("");
-        controller.removeTable(0, 0, 0);
-    });
 
     // Custom Validity
     $('input').on('change', function(){
