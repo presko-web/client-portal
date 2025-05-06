@@ -53,6 +53,10 @@ nav a {
     position: relative;
 }
 
+.card-bo{
+    min-height: 250px;
+}
+
 .card-footer {
     border-top: 1px solid #eee;
     padding-top: 10px;
@@ -242,7 +246,6 @@ nav a {
     .card {
         padding: 15px;
     }
-
     .appointments {
         padding: 15px;
     }

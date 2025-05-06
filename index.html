@@ -20,6 +20,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
 <script src="Assets/Js/customScript.js" type="module"></script>
+<script src="Assets/Js/index.js" type="module"></script>
 <body>
 
     <header>
@@ -51,51 +52,62 @@
         <div class="top-section">
           <!-- Info Card -->
           <div class="card info">
-            <h4>INFO</h4>
-            <p class="address" style="text-transform: uppercase;">---</p>
-            <p class="phoneNumber">---</p>
+            <div class="card-bo">
+              <h4>INFO</h4>
+              <p class="address" style="text-transform: uppercase;">---</p>
+              <p class="phoneNumber">---</p>
+            </div>
+
             
             <div class="card-footer"><p><strong class="customer-name">---</strong></p></div>
           </div>
     
           <!-- Transactions Card -->
           <div class="card transactions">
-            <h4>TRANSACTIONS</h4>
-            <p class="last-cleaning-date"><small> <span>Last Cleaning Date:</span> <label>---</label></small></p>
-            <table>
-              <thead>
-                <tr>
-                  <th>Next Cleaning Date</th>
-                  <th>Since Last Cleaning Date</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- <tr>
-                  <td>Jul 29, 2025</td>
-                  <td>3 Months</td>
-                  <td><button class="book-btn">BOOK</button></td>
-                </tr>
-                <tr>
-                  <td>Aug 29, 2025</td>
-                  <td>4 Months</td>
-                  <td><button class="book-btn">BOOK</button></td>
-                </tr>
-                <tr>
-                  <td>Oct 29, 2025</td>
-                  <td>6 Months</td>
-                  <td><button class="book-btn">BOOK</button></td>
-                </tr> -->
-              </tbody>
-            </table>
+            <div class="card-bo">
+              <h4>TRANSACTIONS</h4>
+              <p class="last-cleaning-date"><small> <span>Last Cleaning Date:</span> <label>---</label></small></p>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Next Cleaning Date</th>
+                    <th>Since Last Cleaning Date</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <tr>
+                    <td>Jul 29, 2025</td>
+                    <td>3 Months</td>
+                    <td><button class="book-btn">BOOK</button></td>
+                  </tr>
+                  <tr>
+                    <td>Aug 29, 2025</td>
+                    <td>4 Months</td>
+                    <td><button class="book-btn">BOOK</button></td>
+                  </tr>
+                  <tr>
+                    <td>Oct 29, 2025</td>
+                    <td>6 Months</td>
+                    <td><button class="book-btn">BOOK</button></td>
+                  </tr> -->
+                </tbody>
+              </table>
+            </div>
+            
           </div>
     
           <!-- Points Card -->
           <div class="card points">
-            <h4>POINTS</h4>
-            <div class="points-number">---</div>
-            <p style="font-size: 12px; color: #333;">Expires on <span class="expiry">---</span></p>
-            <a class="btn-disabled" id="redeem-btn">REDEEM POINTS</a>
+            <div class="card-bo">
+
+              <h4>POINTS</h4>
+              <div class="points-number">---</div>
+              <p style="font-size: 12px; color: #333;">Expires on <span class="expiry">---</span></p>
+              <a class="btn-disabled" id="redeem-btn">REDEEM POINTS</a>
+              
+            </div>
+
             
             <div class="card-footer"><p class="points-note">Note: Points will be credited after the completion of your booking or referral’s booking.</p></div>
           </div>

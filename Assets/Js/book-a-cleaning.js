@@ -1,11 +1,18 @@
 // Book a cleaning page script
-function pageInit() {
-    // get the nextCleaningDate value from the url
-    const urlParams = new URLSearchParams(window.location.search);
-    const redeem = urlParams.get('redeem');
-    // check if the nextCleaningDate value is not null or undefined
-    console.log(redeem);
-    
+import controller from './modules/controller.js';
+var splitType = 0;
+var windowType = 0;
+var uShapedType = 0;
+var total = 0;
+var cleaningDate = null;
+let redeem;
+
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('customerId');
+
+async function pageInit() {
+
+    redeem = (urlParams.get('redeem') != null && urlParams.get('redeem') != "" && urlParams.get('redeem') !== undefined) ? urlParams.get('redeem') : "No";
     if (redeem) {
         $('#redeemPoints').val(redeem);
     }
@@ -92,5 +99,42 @@ $(function() {
         });
         
     });
+
+
+    $('.number-Of').on('change', function(){
+        if($(this).attr('name') == 'noOfSplitType'){
+            splitType = $(this).val();
+        }else if($(this).attr('name') == 'noOfWindowType'){
+            windowType = $(this).val();
+        }else{
+            uShapedType = $(this).val();
+        }
+        console.log(splitType, windowType, uShapedType);
+        
+        total = controller.generateTableIntitator(redeem, splitType, windowType, uShapedType);
+    });
+
+
+    $("button[name=clear]").on("click", function(){
+        $('.number-Of').val(0);
+        splitType = 0;
+        windowType = 0;
+        uShapedType = 0;
+        redeem = 'No';
+        cleaningDate = null;
+        total = 0;
+        $('#datepicker').val(null);
+        $("#redeemPoints").val('No');
+        controller.removeTable(0, 0, 0);
+        
+
+    });
+
+    $("select[name=redeemPoints]").on("change", function(){
+        redeem = $(this).val();
+        total = controller.generateTableIntitator(redeem, splitType, windowType, uShapedType);
+    });
+
+    
     pageInit();
 });
