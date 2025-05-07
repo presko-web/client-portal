@@ -16,7 +16,14 @@ header {
     background-color: #9abec2;
 }
 
-
+.nav-custom{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.menu-mobile{
+    display: none;
+}
 .logo {
     font-size: 24px;
     font-weight: bold;
@@ -265,5 +272,27 @@ nav a {
         display: block;
         overflow-x: auto;
         white-space: nowrap;
+    }
+    .header-nav{
+        position: fixed;
+        z-index: 100;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #99bcc0;
+        display: none;
+    }
+    .header-nav ul{
+        padding: 1.5em;
+    }
+    .header-nav ul li{
+        display: block;
+    }
+    .menu-mobile{
+        display: block;
+    }
+    .logo img{
+        width: 150px;
     }
 }
