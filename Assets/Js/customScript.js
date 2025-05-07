@@ -210,6 +210,9 @@ $(function() {
     $('#close-menu').on('click', function(){
         $('.header-nav').fadeOut();
     });
+    $('.header-nav ul li').on('click', function(){
+        $('.header-nav').fadeOut();
+    })
     // initialization
     init();
 })
