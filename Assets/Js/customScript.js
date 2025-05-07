@@ -204,7 +204,12 @@ $(function() {
         let validityMessage = 'Complete this field';
         $(this).get(0).setCustomValidity(validityMessage);
     });
-
+    $('#display-menu').on('click', function(){
+        $('.header-nav').fadeIn();
+    });
+    $('#close-menu').on('click', function(){
+        $('.header-nav').fadeOut();
+    });
     // initialization
     init();
 })
