@@ -120,7 +120,7 @@ const getClientData = async (jsonData, forceInit) => {
 
 }
 
-const createRecord = (data) => {
+const refer = (data) => {
 
     
     var settings = {
@@ -133,51 +133,50 @@ const createRecord = (data) => {
         },
         "data": JSON.stringify(data),
     };
-
+    // check or Generate new token
+    getToken();
 
     $.ajax(settings).done(function (response) {
-        if(!response.success){
-            $('.cover-loader').css({"display": "none"});
-            var errorMsg = 'Unexpected Error';
-            if (response.errorMessage.includes('DUPLICATES_DETECTED')) {
-                errorMsg = response.errorMessage.split('first error:')[1].split('DUPLICATES_DETECTED, Alert:')[1]
-            }
-            Toastify({
-                text: errorMsg,
-                duration: 3000,
-                close: true,
-                gravity: "top", // `top` or `bottom`
-                position: "center", // `left`, `center` or `right`
-                stopOnFocus: true, // Prevents dismissing of toast on hover
-                style: {
-                  background: "linear-gradient(to right,rgb(176, 0, 0),rgb(201, 61, 61))",
-                }
-              }).showToast();
-        }else{
-            window.location.href = 'https://presko-dev-ed.develop.my.site.com/clientportal/s/?customerId=' + response.account_id;
-        }
-    }).catch((err) => {
-        if(err.responseText.includes('Session expired or invalid') && errorCount <= 3){
-            errorCount ++;
-            getToken();
-            setTimeout(() => {
-                createRecord(data);
-            }, 2000);
-        }
+        var message = "";
+        var color = "";
+        if(response.success){
+            message = "Customer has been submitted!";
+            color = "rgb(35, 176, 0),rgb(61, 201, 80)";
 
-        if(errorCount >= 3) {
-            Toastify({
-                text: "unexpedted error, check the log or contact the Admin!",
-                duration: 3000,
-                close: true,
-                gravity: "top", // `top` or `bottom`
-                position: "center", // `left`, `center` or `right`
-                stopOnFocus: true, // Prevents dismissing of toast on hover
-                style: {
-                  background: "linear-gradient(to right,rgb(176, 0, 0),rgb(201, 61, 61))",
-                }
-              }).showToast();
-        };
+            setTimeout(() => {
+                window.location.href = "index.html?customerId=" + data.customer.agent_id;
+                $('.cover-loader').css({"display": "none"});
+            }, 2000);
+
+        }else{
+            message = response.errorMessage;
+            color = "rgb(176, 0, 0),rgb(201, 61, 61)";
+        }
+        Toastify({
+            text: message,
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "center", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background: "linear-gradient(to right, " + color +")",
+            }
+        }).showToast();
+
+    }).catch((err) => {
+        Toastify({
+            text: "unexpedted error, check the log or contact the Admin!",
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "center", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+                background: "linear-gradient(to right,rgb(176, 0, 0),rgb(201, 61, 61))",
+            }
+        }).showToast();
+        $('.cover-loader').css({"display": "none"});
         console.log("error: ", err);
     });
 }
@@ -420,4 +419,4 @@ const bookAservice = async (data) => {
         console.log("error: ", err);
     });
 }
-export default { getToken, getData, createRecord, getCreds, calculation, generateTotalTable, removeTable, generateBreakdownTable, getClientData, generateTableIntitator, bookAservice }
+export default { getToken, getData, refer, getCreds, calculation, generateTotalTable, removeTable, generateBreakdownTable, getClientData, generateTableIntitator, bookAservice }

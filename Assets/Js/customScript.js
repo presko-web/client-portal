@@ -70,6 +70,7 @@ async function init(){
                     })
                 }else{
                     $('.transactions').css({'display':'none'});
+                    $('li#book-a-cleaning').css({'display':'none'});
                 }
     
                 $('.points-number').text(res.client.loyalty.points);

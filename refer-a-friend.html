@@ -26,7 +26,9 @@
 <script src="Assets/Js/customScript.js" type="module"></script>
 <script src="Assets/Js/refer-a-friend.js" type="module"></script>
 <body>
-
+    <div class="cover-loader">
+        <div class="loader"></div>
+    </div>
     <header>
       <div class="wrapper">
         <div class="header custom-width">
@@ -39,7 +41,7 @@
                 <li>
                     <a href="index.html">DASHBOARD</a>
                 </li>
-                <li>
+                <li id="book-a-cleaning">
                     <a href="book-a-cleaning.html">BOOK A CLEANING</a>
                 </li>
                 <li>
@@ -168,7 +170,7 @@
                                     <div class="datepicker">
                                         <label for="datepicker" class="input-label">Cleaning date</label>
                                          
-                                        <input type="text" name="cleaningDate" id="datepicker" required="true" disabled autocomplete="false" >
+                                        <input type="text" name="cleaningDate" id="datepicker" required="true" disabled autocomplete="false">
                                         <!-- <input type="date" id="datepicker" name="cleaningDate" required="true" disabled> -->
                                     </div>
                                 </div>
