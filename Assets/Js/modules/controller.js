@@ -1,7 +1,7 @@
 var windowTypePrice = 0,
 splitTypePrice = 0,
 discount = 0;
-
+var unavailableDates = [];
 const  getToken = async () => {
     let clientId = atob(sessionStorage.getItem("clientId"));
     let clientSecret = atob(sessionStorage.getItem("clientSecret"));
@@ -19,7 +19,7 @@ const  getToken = async () => {
     // if the token is expired, get a new one
     // using the refresh token
     // using the client id and client secret to get a new token
-    console.log("Token expired, Generating a new one");
+    // console.log("Token expired, Generating a new one");
     var settings = {
         "url": "https://presko-dev-ed.develop.my.salesforce.com/services/oauth2/token?grant_type=refresh_token&client_id="+clientId+"&client_secret="+clientSecret+"&refresh_token="+refresh,
         "method": "POST",
@@ -48,7 +48,7 @@ const getData = async () => {
         }
         $.ajax(reqJson).done(function (res) {
             var resJsn = JSON.parse(res);
-            var unavailableDates = resJsn.blockedDates;
+            unavailableDates = resJsn.blockedDates;
             var dateTotday = new Date().toISOString().substring(0,10);
             if(!unavailableDates.includes(dateTotday)){
                 unavailableDates.push(dateTotday);
@@ -75,9 +75,8 @@ const getClientData = async (jsonData, forceInit) => {
             var resString = JSON.stringify(res);
             var resJsn = JSON.parse(resString);
             resolve(resJsn);
-            
         }else{
-            console.log("Client data does not exist in session storage, making a new request.");
+            // console.log("Client data does not exist in session storage, making a new request.");
             let token = sessionStorage.getItem("tkn");
             var reqJson = {
                 "url": "https://presko-dev-ed.develop.my.salesforce.com/services/apexrest/GetCustomerDetails",
@@ -89,12 +88,28 @@ const getClientData = async (jsonData, forceInit) => {
                 },
                 "data": JSON.stringify(jsonData)
             }
-            $.ajax(reqJson).done(function (res) {
-                var resString = JSON.stringify(res);
-                sessionStorage.setItem("clientData", resString);
-                sessionStorage.setItem("recordId", res.client.id);
-                resolve(res);
-
+            $.ajax(reqJson).then(function (res) {
+                if(res.success){
+                    var resString = JSON.stringify(res);
+                    sessionStorage.setItem("clientData", resString);
+                    sessionStorage.setItem("recordId", res.client.id);
+                    resolve(res);
+                }else{
+                    Toastify({
+                        text: res.errorMessage,
+                        duration: 3000,
+                        close: true,
+                        gravity: "top", // `top` or `bottom`
+                        position: "center", // `left`, `center` or `right`
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                        style: {
+                          background: "linear-gradient(to right,rgb(176, 0, 0),rgb(201, 61, 61))",
+                        }
+                      }).showToast();
+                      setTimeout(() => {
+                        window.location.href = "https://presko-web.github.io/pricing-calculator/";
+                      }, 1000);
+                }
             }).catch(function (err){
                 console.log(err.responseJSON);
                 reject(err.responseJSON);
@@ -107,7 +122,7 @@ const getClientData = async (jsonData, forceInit) => {
 
 const createRecord = (data) => {
 
-    $('.cover-loader').css({"display": "block"});
+    
     var settings = {
         "url": "https://presko-dev-ed.develop.my.salesforce.com/services/apexrest/CreateAppointment",
         "method": "POST",
@@ -346,4 +361,63 @@ const generateTableIntitator = (redeem, splitType, windowType, uShapedType) => {
     return calc.total;
 
 }
-export default { getToken, getData, createRecord, getCreds, calculation, generateTotalTable, removeTable, generateBreakdownTable, getClientData, generateTableIntitator }
+
+const bookAservice = async (data) => {
+
+    var settings = {
+        "url": "https://presko-dev-ed.develop.my.salesforce.com/services/apexrest/BookingService",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + sessionStorage.getItem('tkn')
+        },
+        "data": JSON.stringify(data)
+    };
+    // check or Generate new token
+    getToken();
+
+    await $.ajax(settings).done(function (response) {
+        var message = "";
+        var color = "";
+        if(response.success){
+            message = "Service has been Booked!";
+            color = "rgb(35, 176, 0),rgb(61, 201, 80)";
+
+            setTimeout(() => {
+                window.location.href = "index.html?customerId=" + data.appointment.client_id;
+                $('.cover-loader').css({"display": "none"});
+            }, 2000);
+
+        }else{
+            message = response.errorMessage;
+            color = "rgb(176, 0, 0),rgb(201, 61, 61)";
+        }
+        Toastify({
+            text: message,
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "center", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background: "linear-gradient(to right, " + color +")",
+            }
+          }).showToast();
+    }).catch((err) => {
+        Toastify({
+            text: "unexpedted error, check the log or contact the Admin!",
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "center", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+                background: "linear-gradient(to right,rgb(176, 0, 0),rgb(201, 61, 61))",
+            }
+        }).showToast();
+        $('.cover-loader').css({"display": "none"});
+        console.log("error: ", err);
+    });
+}
+export default { getToken, getData, createRecord, getCreds, calculation, generateTotalTable, removeTable, generateBreakdownTable, getClientData, generateTableIntitator, bookAservice }
