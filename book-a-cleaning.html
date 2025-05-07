@@ -26,7 +26,9 @@
 <script src="Assets/Js/customScript.js" type="module"></script>
 <script src="Assets/Js/book-a-cleaning.js" type="module"></script>
 <body>
-
+    <div class="cover-loader">
+        <div class="loader"></div>
+    </div>
     <header>
       <div class="wrapper">
         <div class="header custom-width">
@@ -114,7 +116,7 @@
                                 <div class="col-1-of-2 col-1-of-1-small">
                                     <div class="">
                                         <label for="redeemPoints" class="input-label">Redeem your points?</label>
-                                        <select name="redeemPoints" id="redeemPoints">
+                                        <select name="redeem" id="redeemPoints">
                                             <option value="Yes">Yes</option>
                                             <option value="No" selected>No</option>
                                         </select>
@@ -167,7 +169,7 @@
                         <div class="custom-row">
                             <div class="col-1-of-1">
                                 <div class="buttons">
-                                    <button type="button" class="custom-neutral-btn" name="proceed" disabled>BOOK</button>
+                                    <button type="submit" class="custom-neutral-btn" name="proceed" disabled>BOOK</button>
                                     <button type="button" class="custom-default-btn" name="clear">CLEAR</button>
                                 </div>
                             </div>

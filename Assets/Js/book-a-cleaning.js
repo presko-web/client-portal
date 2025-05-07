@@ -20,55 +20,54 @@ async function pageInit() {
 $(function() {
 
     // to do
-    $("#frm").on("submit", function(e){
+    $("#frm").on("submit", async function(e){
         e.preventDefault();
-        var customerFields = [
-                            "firstName",
-                            "lastName",
-                            "mobile",
-                            "street",
-                            "barangay",
-                            "city",
-                            "landmark"
-                        ];
 
         var appointmentFields = [
                             "cleaningDate",
                             "noOfSplitType",
                             "noOfWindowType",
-                            "noOfUShapedType"
+                            "noOfUShapedType",
+                            "redeem"
                         ];
 
-        var jsonReq = {"customer": {}, "appointment": {
-            "totalAmount": total,
-            "redeem": "No"
-        }};
+        var jsonReq = {
+            "appointment": {
+                    "client_id": id,
+                    "totalAmount": total
+                }
+            };
         $.each($(this).serializeArray(), function(i, field) {
-            if(customerFields.includes(field.name)){
-                jsonReq['customer'][field.name] = field.value;
-            } else if(appointmentFields.includes(field.name)){
+            if(appointmentFields.includes(field.name)){
                 jsonReq['appointment'][field.name] = field.value;
             }
+        });
+        
+        var unavailableDatesNew = [];
+        await controller.getData().then((res) => {
+            unavailableDatesNew = res.unavailableDates;
+        }).catch((err)=>{
+            console.error('error', err);
         });
 
         // double checking for Cleaning date
         let hasErrorDate = false;
         let errMsg = "";
-        if(unavailableDates.includes(jsonReq.appointment.cleaningDate)){
+        let dateNow = new Date();
+        let dateSelected = new Date(jsonReq.appointment.cleaningDate);
+        let pattern = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
+        let result = pattern.test(jsonReq.appointment.cleaningDate);
+        if(unavailableDatesNew.includes(jsonReq.appointment.cleaningDate) || dateSelected < dateNow){
             hasErrorDate = true;
             errMsg = "The selected date is not available!";
         }
-        
-        let pattern = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
-        let result = pattern.test(jsonReq.appointment.cleaningDate);
 
         if(!result){
             hasErrorDate = true;
-            errMsg = "Date format is Invalid";
+            errMsg = "Date format is Invalid, it should be 'yyyy-mm-dd'";
         }
 
         if(hasErrorDate){
-
             Toastify({
                 text: errMsg,
                 duration: 3000,
@@ -83,7 +82,7 @@ $(function() {
               $('#datepicker').focus();
               return;
         }
-
+        
         Swal.fire({
             title: "",
             showDenyButton: true,
@@ -94,7 +93,10 @@ $(function() {
             denyButtonText: `Cancel`
           }).then((result) => {
             if (result.isConfirmed) {
-                createRecord(jsonReq);
+                $('.cover-loader').css({"display": "block"});
+                controller.bookAservice(jsonReq);
+            }else{
+                $('.cover-loader').css({"display": "none"});
             }
         });
         
@@ -130,7 +132,7 @@ $(function() {
 
     });
 
-    $("select[name=redeemPoints]").on("change", function(){
+    $("select[name=redeem]").on("change", function(){
         redeem = $(this).val();
         total = controller.generateTableIntitator(redeem, splitType, windowType, uShapedType);
     });
