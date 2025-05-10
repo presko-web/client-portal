@@ -24,7 +24,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script src="Assets/Js/customScript.js" type="module"></script>
-<script src="Assets/Js/book-a-cleaning.js" type="module"></script>
+<script src="Assets/Js/edit-info.js" type="module"></script>
 <body>
     <div class="cover-loader">
         <div class="loader"></div>
@@ -48,7 +48,7 @@
                     <a href="index.html">DASHBOARD</a>
                 </li>
                 <li id="book-a-cleaning">
-                    <a href="book-a-cleaning.html" class="active">BOOK A CLEANING</a>
+                    <a href="book-a-cleaning.html">BOOK A CLEANING</a>
                 </li>
                 <li>
                     <a href="refer-a-friend.html">REFER A FRIEND</a>
@@ -58,125 +58,80 @@
       </div>
     </header>
     
-    <div class="container">
-      <div class="wrapper">
-        <div class="card">
-            <h4>Customer Details</h4>
-            <div class="row">
-                <div class="column">
-                    <div class="label">Customer Name</div>
-                    <div class="value value-name">---</div>
-                    <div class="label">Complete Address</div>
-                    <div class="value value-address">---</div>
-                </div>
-                <div class="column">
-                    <div class="label">Loyalty Points</div>
-                    <div class="value-points">--</div>
-                </div>
-            </div>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-        
+    <div class="container" style="margin-bottom: 20px;">
         <div class="custom-width">
             <form id="frm" method="POST">
                 <div class="custom-card">
+                    
                     <!-- <div class="custom-card-header">
                         
                     </div> -->
                     <div class="card-body">
-                        <div id="calculator">
-                            <h2 class="custom-label">Pricing Calculator</h2>
+                        <div>
+                            <h2 class="custom-label">Edit your information</h2>
                             <div class="custom-row">
                                 <div class="col-1-of-2 col-1-of-1-small">
                                     <div class="">
-                                        <label for="split-type" class="input-label">Number of Split type</label>
-                                        <select name="noOfSplitType" id="split-type" class="number-Of" disabled>
-                                            <option value="0">Choose one..</option>
-                                        </select>
+                                        <label for="full-name" class="input-label">Fullname</label>
+                                        <input type="text" name="fullName" id="full-name" required="true">
                                     </div>
                                 </div>
-                                <div class="col-1-of-2 col-1-of-1-small">
-                                    <div class="">
-                                        <label for="window-type" class="input-label">Number of Window type</label>
-                                        <select name="noOfWindowType" id="window-type" class="number-Of" disabled>
-                                            <option value="0">Choose one..</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-    
-                            <div class="custom-row">
 
                                 <div class="col-1-of-2 col-1-of-1-small">
                                     <div class="">
-                                        <label for="u-shaped-type" class="input-label">Number of U-Shaped type</label>
-                                        <select name="noOfUShapedType" id="u-shaped-type" class="number-Of" disabled>
-                                            <option value="0">Choose one..</option>
-                                        </select>
+                                        <label for="mobile" class="input-label">Mobile number <small>(ex. 09097685432)</small>
+                                        </label>
+                                        <input type="tel" name="mobile" id="mobile" required="true" pattern="^09\d{9}$">
                                     </div>
                                 </div>
 
 
-                                <div class="col-1-of-2 col-1-of-1-small">
-                                    <div class="">
-                                        <label for="redeemPoints" class="input-label">Redeem your points?</label>
-                                        <select name="redeem" id="redeemPoints">
-                                            <option value="Yes">Yes</option>
-                                            <option value="No" selected>No</option>
-                                        </select>
-                                    </div>
-
-                                </div>
-                                
                             </div>
 
                             <div class="custom-row">
-
                                 <div class="col-1-of-1">
-
-                                    <div class="datepicker">
-                                        <label for="datepicker" class="input-label">Cleaning date</label>
-                                        <input type="text" name="cleaningDate" id="datepicker" required="true" disabled autocomplete="false">
+                                    <div class="">
+                                        <label for="street" class="input-label">Street</label>
+                                        <textarea name="street" id="street" required="true"></textarea>
                                     </div>
-
                                 </div>
-                                
                             </div>
+
+
+                            <div class="custom-row">
+                                <div class="col-1-of-2 col-1-of-1-small">
+                                    <div class="">
+                                        <label for="barangay" class="input-label">Barangay</label>
+                                        <input type="text" name="barangay" id="barangay" required="true">
+                                    </div>
+                                </div>
+
+                                <div class="col-1-of-2 col-1-of-1-small">
+                                    <div class="">
+                                        <label for="city" class="input-label">City/Municipality</label>
+                                        <input type="text" name="city" id="city" value="Malolos" required="true">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="custom-row">
+                                <div class="col-1-of-1">
+                                    <div class="">
+                                        <label for="landmark" class="input-label">Landmark</label>
+                                        <textarea name="landmark" id="landmark" required="true"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
 
-                        <div id="table-data" class="padding-top-mid">
-                            <h2 class="custom-label">Calculation Table</h2>
-                            <div class="custom-row default-calc-table">
-                                <div class="col-1-of-1">
-                                    <table class="tbl">
-                                        <thead>
-                                            <th>Description</th>
-                                            <th>Qty</th>
-                                            <th>Unit Price</th>
-                                            <th>Line Total</th>
-                                        </thead>
-                                        <tbody></tbody>
-                                    </table>
-                                    <div id="total-table"></div>
-                                </div>
-                            </div>
-
-                            <div class="mobile-calculation">
-                                <div id="inner-mobile-calc"></div>
-                                <div id="mobile-responsive-total">
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="card-foot">
                         <div class="custom-row">
                             <div class="col-1-of-1">
                                 <div class="buttons">
-                                    <button type="submit" class="custom-neutral-btn" name="proceed" disabled>BOOK</button>
-                                    <button type="button" class="custom-default-btn" name="clear">CLEAR</button>
+                                    <button type="submit" class="custom-neutral-btn" name="">SAVE</button>
                                 </div>
                             </div>
                         </div>
@@ -185,5 +140,7 @@
             </form>
         </div>
     </div>
-    </body>
+
+
+</body>
 </html>
