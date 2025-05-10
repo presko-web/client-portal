@@ -10,6 +10,7 @@ const id = urlParams.get('customerId');
 
 
 async function init(){
+    $('.cover-valid').css({"display": "block"});
     var reinit; // = (urlParams.get('redeem') != null && urlParams.get('redeem') != "" && urlParams.get('redeem') !== undefined && urlParams.get('redeem') == 'Yes') ? true : false;
     reinit = true;
     // check if id is not null
@@ -24,6 +25,7 @@ async function init(){
                 $(this).attr('href', href + "?customerId=" + id);
             }
         });
+        $('.info-edit').attr('href', 'edit-info.html?customerId=' + id)
     }
 
     await controller.getCreds();
@@ -31,7 +33,12 @@ async function init(){
     await initiateOrgData();
     await controller.getClientData({"client_id": id}, reinit).then((res) => {
         if(res != null && res != undefined && res != "" && res.success === true){
+            $('.cover-valid').css({"display": "none"});
             // check if we are in the index.html page
+            if(res.client.loyalty.last_cleaning_date == null || res.client.loyalty.last_cleaning_date == "" || res.client.loyalty.last_cleaning_date === undefined){
+                $('.transactions').css({'display':'none'});
+                $('li#book-a-cleaning').css({'display':'none'});
+            }
             if(window.location.href.indexOf("book-a-cleaning.html") > -1){
                 $('.value-address').text(res.client.street + ", " + res.client.barangay + ", " + res.client.city + ", " + res.client.landmark);
                 $('.value-name').text(res.client.name);
@@ -45,6 +52,13 @@ async function init(){
                 }
             }else if(window.location.href.indexOf("refer-a-friend.html") > -1){
                 $('.value-name').text(res.client.name);
+            }else if(window.location.href.indexOf("edit-info.html") > -1){
+                $('[name=fullName]').val(res.client.name);
+                $('[name=mobile]').val(res.client.mobile);
+                $('[name=street]').val(res.client.street);
+                $('[name=barangay]').val(res.client.barangay);
+                $('[name=city]').val(res.client.city);
+                $('[name=landmark]').val(res.client.landmark);
             }else{
                 $('.address').text(res.client.street + ", " + res.client.barangay + ", " + res.client.city + ", " + res.client.landmark);
                 $('.phoneNumber').text(res.client.mobile);
@@ -68,9 +82,6 @@ async function init(){
                         }
                         
                     })
-                }else{
-                    $('.transactions').css({'display':'none'});
-                    $('li#book-a-cleaning').css({'display':'none'});
                 }
     
                 $('.points-number').text(res.client.loyalty.points);

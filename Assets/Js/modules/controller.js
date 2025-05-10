@@ -419,4 +419,60 @@ const bookAservice = async (data) => {
         console.log("error: ", err);
     });
 }
-export default { getToken, getData, refer, getCreds, calculation, generateTotalTable, removeTable, generateBreakdownTable, getClientData, generateTableIntitator, bookAservice }
+
+
+const updateClientDetails = async (data) =>{
+    getToken();
+    var settings = {
+        "url": "https://presko-dev-ed.develop.my.salesforce.com/services/apexrest/ClientDetail",
+        "method": "POST",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + sessionStorage.getItem('tkn')
+        },
+        "data": JSON.stringify(data)
+    };
+
+
+    await $.ajax(settings).done(function (response) {
+        var message = "";
+        var color = "";
+        if(response.success){
+            message = "Details has been updated!";
+            color = "rgb(35, 176, 0),rgb(61, 201, 80)";
+            $('.cover-loader').css({"display": "none"});
+        }else{
+            message = response.errorMessage;
+            color = "rgb(176, 0, 0),rgb(201, 61, 61)";
+        }
+        Toastify({
+            text: message,
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "center", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background: "linear-gradient(to right, " + color +")",
+            }
+          }).showToast();
+    }).catch((err) => {
+        Toastify({
+            text: "unexpedted error, check the log or contact the Admin!",
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "center", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+                background: "linear-gradient(to right,rgb(176, 0, 0),rgb(201, 61, 61))",
+            }
+        }).showToast();
+        $('.cover-loader').css({"display": "none"});
+        console.log("error: ", err);
+    });
+
+}
+
+export default { getToken, getData, refer, getCreds, calculation, generateTotalTable, removeTable, generateBreakdownTable, getClientData, generateTableIntitator, bookAservice, updateClientDetails }
