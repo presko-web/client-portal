@@ -101,9 +101,11 @@ async function init(){
                     appointments.forEach((item) => {
                         const cleaningDate = new Date(item.cleaningDate).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
                         var notes = '';
+                        var resched = ``;
                         // check if status contains "Cancelled"
                         if(item.status == "Confirmed"){
-                            notes = bookingDetails['confirmed_notes']
+                            notes = bookingDetails['confirmed_notes'];
+                            resched = `<input data-id="${item.id}" type="text" style="opacity:0; width: 10px; height:5px; display: absolute;" id="datepicker-update-${item.id}" class="datepicker-update"/><button date-value="${item.cleaningDate}" data-target="datepicker-update-${item.id}" class="custom-default-btn resched-btn"><i class="fas fa-calendar"></i>  Reschedule</button>`;
                         }
                         if(item.status == "Completed"){
                             notes = bookingDetails['completed_notes']
@@ -113,6 +115,7 @@ async function init(){
                         }
                         $('.appointments table tbody').append(
                             `<tr>
+                                <td style="">${resched}</td>
                                 <td>${cleaningDate}</td>
                                 <td>${item.noOfWindowType}</td>
                                 <td>${item.noOfSplitType}</td>
@@ -123,6 +126,17 @@ async function init(){
                             </tr>`
                         )
                     });
+                    setTimeout(() => {
+                        $( ".datepicker-update" ).datepicker({
+                            dateFormat: 'yy-mm-dd',
+                            minDate: new Date(minDate),
+                            beforeShowDay: (date) => {
+                                var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                                return [ unavailableDates.indexOf(string) == -1 ]
+                            }
+                        })
+                    }, 100);
+                    
                 }
             }
 
@@ -174,10 +188,72 @@ async function initiateOrgData(){
     })
 }
 
+async function updateSchedule(data){
 
+    var unavailableDatesNew = [];
+    await controller.getData().then((res) => {
+        unavailableDatesNew = res.unavailableDates;
+    }).catch((err)=>{
+        console.error('error', err);
+    });
+
+    let hasErrorDate = false;
+    let errMsg = "";
+    let dateNow = new Date();
+    let dateSelected = new Date(data.cleaningDate);
+    if(unavailableDatesNew.includes(data.cleaningDate) || dateSelected < dateNow){
+        hasErrorDate = true;
+        errMsg = "The selected date is not available!";
+    }
+
+    if(hasErrorDate){
+        Toastify({
+            text: errMsg,
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "center", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+                background: "linear-gradient(to right,rgb(176, 0, 0),rgb(201, 61, 61))",
+            }
+        }).showToast();
+     return;
+    }
+
+    Swal.fire({
+        title: "",
+        showDenyButton: true,
+        confirmButtonText: "Yes",
+        confirmButtonColor: '#557275',
+        icon: "question",
+        text: "Are you sure you want to update your Cleaning date?",
+        denyButtonText: `Cancel`
+        }).then((result) => {
+        if (result.isConfirmed) {
+            $('.cover-loader').css({"display": "block"});
+            controller.updateAppointment(data);
+        }else{
+            $('.cover-loader').css({"display": "none"});
+        }
+    });
+
+}
 
 $(function() {
-
+    $(document).on('click','.resched-btn', function(){
+        var targetId = $(this).attr("data-target");
+        $('#' + targetId).val($(this).attr("date-value"))
+        $('#' + targetId).datepicker('show');
+    });
+    $(document).on('change', '.datepicker-update', function(){
+        var appointmentId = $(this).attr("data-id");
+        
+        updateSchedule({
+            appointmentId,
+            cleaningDate: $(this).val()
+        });
+    })
     // Custom Validity
     $('input').on('change', function(){
         $(this).get(0).setCustomValidity('');

@@ -290,6 +290,25 @@ div.cover-loader{
     color: black;
 }
 
+
+.custom-default-btn{
+    float: right;
+    margin: 0 0 0 1em;
+    font-family: 'Montserrat', Arial, sans-serif;
+    height: 32px;
+    padding: 0 1em;
+    outline: none;
+    border: 1px solid rgb(147, 147, 147);
+    border-radius: 5px;
+    transition: .3s;
+    cursor: pointer;
+    background-color: white;
+    color: #557275;
+}
+.custom-default-btn:hover{
+    background-color: #f1f6f7;
+}
+
 /* Responsive Design */
 @media (max-width: 800px) {
     .top-section {

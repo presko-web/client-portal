@@ -389,6 +389,7 @@ const bookAservice = async (data) => {
             }, 2000);
 
         }else{
+            $('.cover-loader').css({"display": "none"});
             message = response.errorMessage;
             color = "rgb(176, 0, 0),rgb(201, 61, 61)";
         }
@@ -420,6 +421,68 @@ const bookAservice = async (data) => {
     });
 }
 
+const updateAppointment = async (data) => {
+
+
+    var settings = {
+        "url": "https://presko-dev-ed.develop.my.salesforce.com/services/apexrest/BookingService",
+        "method": "PATCH",
+        "timeout": 0,
+        "headers": {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + sessionStorage.getItem('tkn')
+        },
+        "data": JSON.stringify(data)
+    };
+    // check or Generate new token
+    getToken();
+
+    await $.ajax(settings).done(function (response) {
+        var message = "";
+        var color = "";
+        if(response.success){
+            message = "Service has been updated!";
+            color = "rgb(35, 176, 0),rgb(61, 201, 80)";
+
+            setTimeout(() => {
+                window.location.reload();
+                $('.cover-loader').css({"display": "none"});
+            }, 2000);
+
+        }else{
+            $('.cover-loader').css({"display": "none"});
+            message = response.errorMessage;
+            color = "rgb(176, 0, 0),rgb(201, 61, 61)";
+        }
+        Toastify({
+            text: message,
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "center", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+              background: "linear-gradient(to right, " + color +")",
+            }
+          }).showToast();
+    }).catch((err) => {
+        Toastify({
+            text: "unexpedted error, check the log or contact the Admin!",
+            duration: 3000,
+            close: true,
+            gravity: "top", // `top` or `bottom`
+            position: "center", // `left`, `center` or `right`
+            stopOnFocus: true, // Prevents dismissing of toast on hover
+            style: {
+                background: "linear-gradient(to right,rgb(176, 0, 0),rgb(201, 61, 61))",
+            }
+        }).showToast();
+        $('.cover-loader').css({"display": "none"});
+        console.log("error: ", err);
+    });
+
+
+}
 
 const updateClientDetails = async (data) =>{
     getToken();
@@ -443,6 +506,7 @@ const updateClientDetails = async (data) =>{
             color = "rgb(35, 176, 0),rgb(61, 201, 80)";
             $('.cover-loader').css({"display": "none"});
         }else{
+            $('.cover-loader').css({"display": "none"});
             message = response.errorMessage;
             color = "rgb(176, 0, 0),rgb(201, 61, 61)";
         }
@@ -475,4 +539,4 @@ const updateClientDetails = async (data) =>{
 
 }
 
-export default { getToken, getData, refer, getCreds, calculation, generateTotalTable, removeTable, generateBreakdownTable, getClientData, generateTableIntitator, bookAservice, updateClientDetails }
+export default { getToken, getData, refer, getCreds, calculation, generateTotalTable, removeTable, generateBreakdownTable, getClientData, generateTableIntitator, bookAservice, updateClientDetails, updateAppointment }
