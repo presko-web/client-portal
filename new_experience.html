@@ -1,1 +1,11 @@
 
+<html>
+    <script>
+
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const id = urlParams.get('customerid');
+        console.log(id);
+
+    </script>
+</html>
