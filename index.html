@@ -5,6 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Presko | Client Portal</title>
 </head>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f8f9fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.card {
+  background: white;
+  text-align: center;
+  padding: 40px 20px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  width: 320px;
+  position: relative;
+  overflow: hidden;
+}
+
+.icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 20px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.4em;
+  color: #333;
+}
+
+p {
+  margin: 10px 0 30px;
+  font-size: 0.95em;
+  color: #555;
+}
+
+.bottom-bar {
+  height: 12px;
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+</style>
 <script src="Assets/Js/jquery.js"></script>
 <link rel="stylesheet" href="Assets/Css/style.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
@@ -23,7 +72,17 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <body>
     <div class="cover-loader" style="display: block; background-color: rgba(255,255,255, 0.7)"> 
-        We’ve moved! For a better and smoother experience, please visit our new site: Test
+      <div class="card">
+        <div class="icon">
+          <!-- Simple arrow SVG -->
+          <svg viewBox="0 0 24 24" fill="#2196F3" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+          </svg>
+        </div>
+        <h2>Hang Tight !</h2>
+        <p>You’re being redirected to another page,<br>it may takes upto 10 seconds</p>
+        <div class="bottom-bar"></div>
+      </div>
     </div>
     <div class="cover-valid">
     </div>
